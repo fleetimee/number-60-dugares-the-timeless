@@ -1,13 +1,16 @@
-import 'package:bpd_hris/data/entities/homo.entities.dart';
 import 'package:flutter/material.dart';
 
 class HomeMenuGrid extends StatelessWidget {
   const HomeMenuGrid({
     super.key,
     required this.index,
+    required this.imagePath,
+    required this.title,
   });
 
   final int index;
+  final String imagePath;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,8 @@ class HomeMenuGrid extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  homeMenuGridEntities[index].imagePath,
+                  // homeMenuGridEntities[index].imagePath
+                  imagePath,
                   height: 40,
                   fit: BoxFit.contain,
                 ),
@@ -41,13 +45,16 @@ class HomeMenuGrid extends StatelessWidget {
         const SizedBox(
           height: 10.0,
         ),
-        Text(
-          homeMenuGridEntities[index].title,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 13.0,
-                fontWeight: FontWeight.w600,
-              ),
+        Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

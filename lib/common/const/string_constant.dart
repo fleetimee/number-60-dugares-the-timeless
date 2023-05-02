@@ -17,5 +17,13 @@ class StringConstant {
   static const String health = 'Kesehatan';
   static const String other = 'Lainnya';
 
-  static const String helpSubtitle = 'Pantau aduan masayarakat';
+  static const String helpSubtitle = 'Pantau aduan masyarakat';
+
+  static const String shortcut = 'Pintasan';
+  static const String shortcutSubtitle = 'Pintasan aplikasi HRIMS untukmu';
+
+  static const String jobsList = 'Lowongan Pekerjaan';
+  static const String learn = 'Belajar';
+  static const String clipping = 'Kliping';
+  static const String cctv = 'CCTV';
 }

@@ -19,12 +19,26 @@ class HomeHelpListEntities {
   final String imagePath;
   final String status;
   final VoidCallback onTap;
+  final String date;
 
   HomeHelpListEntities({
     required this.title,
     required this.content,
     required this.imagePath,
     required this.status,
+    required this.onTap,
+    required this.date,
+  });
+}
+
+class HomeShortcutGridEntities {
+  final String title;
+  final String imagePath;
+  final VoidCallback onTap;
+
+  HomeShortcutGridEntities({
+    required this.title,
+    required this.imagePath,
     required this.onTap,
   });
 }
@@ -80,6 +94,7 @@ final List<HomeHelpListEntities> homeHelpListEntities = [
     imagePath: 'assets/images/home_help_image1.jpg',
     onTap: () {},
     status: 'Lapor',
+    date: '2 Mei 2023, 7.42',
   ),
   HomeHelpListEntities(
     title: 'Penerangan Jalan Umum',
@@ -88,6 +103,7 @@ final List<HomeHelpListEntities> homeHelpListEntities = [
     imagePath: 'assets/images/home_help_image2.jpg',
     onTap: () {},
     status: 'Lapor',
+    date: '5 Mei 2023, 7.42',
   ),
   HomeHelpListEntities(
     title: 'Pengaduan Jalan Rusak',
@@ -96,26 +112,56 @@ final List<HomeHelpListEntities> homeHelpListEntities = [
     imagePath: 'assets/images/home_help_image3.jpg',
     onTap: () {},
     status: 'Dikerjakan',
+    date: '7 Mei 2023, 7.42',
   ),
   HomeHelpListEntities(
-      title: 'Pengaduan Jalan Rusak',
-      content:
-          'Jalan di Jalan Kaliurang, Sleman, Yogyakarta, rusak parah. Hal ini membuat pengendara kesulitan melintas di malam hari.',
-      imagePath: 'assets/images/home_help_image4.jpg',
-      onTap: () {},
-      status: 'Selesai'),
+    title: 'Pengaduan Jalan Rusak',
+    content:
+        'Jalan di Jalan Kaliurang, Sleman, Yogyakarta, rusak parah. Hal ini membuat pengendara kesulitan melintas di malam hari.',
+    imagePath: 'assets/images/home_help_image4.jpg',
+    onTap: () {},
+    status: 'Selesai',
+    date: '9 Mei 2023, 7.42',
+  ),
   HomeHelpListEntities(
-      title: 'Saluran Air Tersumbat',
-      content:
-          'Saluran air di Jalan Kaliurang, Sleman, Yogyakarta, tersumbat. Hal ini membuat pengendara kesulitan melintas di malam hari.',
-      imagePath: 'assets/images/home_help_image5.jpg',
-      onTap: () {},
-      status: 'Selesai'),
+    title: 'Saluran Air Tersumbat',
+    content:
+        'Saluran air di Jalan Kaliurang, Sleman, Yogyakarta, tersumbat. Hal ini membuat pengendara kesulitan melintas di malam hari.',
+    imagePath: 'assets/images/home_help_image5.jpg',
+    onTap: () {},
+    status: 'Selesai',
+    date: '11 Mei 2023, 7.42',
+  ),
   HomeHelpListEntities(
-      title: 'Pengaduan Jalan Rusak',
-      content:
-          'Jalan di Jalan Kaliurang, Sleman, Yogyakarta, rusak parah. Hal ini membuat pengendara kesulitan melintas di malam hari.',
-      imagePath: 'assets/images/home_help_image6.jpg',
-      onTap: () {},
-      status: 'Selesai'),
+    title: 'Pengaduan Jalan Rusak',
+    content:
+        'Jalan di Jalan Kaliurang, Sleman, Yogyakarta, rusak parah. Hal ini membuat pengendara kesulitan melintas di malam hari.',
+    imagePath: 'assets/images/home_help_image6.jpg',
+    onTap: () {},
+    status: 'Selesai',
+    date: '13 Mei 2023, 7.42',
+  ),
+];
+
+final List<HomeShortcutGridEntities> homeShortcutGridEntities = [
+  HomeShortcutGridEntities(
+    title: StringConstant.jobsList,
+    imagePath: 'assets/images/home_shortcut_grid_jobs.png',
+    onTap: () {},
+  ),
+  HomeShortcutGridEntities(
+    title: StringConstant.learn,
+    imagePath: 'assets/images/home_shortcut_grid_learn.png',
+    onTap: () {},
+  ),
+  HomeShortcutGridEntities(
+    title: StringConstant.clipping,
+    imagePath: 'assets/images/home_shortcut_grid_clipping.png',
+    onTap: () {},
+  ),
+  HomeShortcutGridEntities(
+    title: StringConstant.cctv,
+    imagePath: 'assets/images/home_shortcut_grid_cctv.png',
+    onTap: () {},
+  ),
 ];

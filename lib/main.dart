@@ -1,9 +1,8 @@
+import 'package:bpd_hris/ui/login/login_ui.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
-import 'ui/home/home_ui.dart';
 
 void main() {
   runApp(const MainApp());
@@ -30,7 +29,8 @@ class MainApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
-      home: const HomePage(),
+      debugShowCheckedModeBanner: false,
+      home: const LoginPage(),
     );
   }
 }
