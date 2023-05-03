@@ -26,15 +26,21 @@ class LoginReuseableTextFormField extends StatelessWidget {
     return FormBuilderTextField(
       name: name,
       controller: controller,
+      style: const TextStyle(
+        fontSize: 18,
+      ),
       decoration: InputDecoration(
         iconColor: Colors.blue,
         hintText: hintText,
+        hintStyle: const TextStyle(
+          fontSize: 18,
+        ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
         ),
-        contentPadding: const EdgeInsets.all(16.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
         prefixIcon: Icon(
           prefixIcon,
         ),

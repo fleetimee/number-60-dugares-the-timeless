@@ -44,11 +44,12 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   'Masuk Akun HRIMS',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 Padding(
@@ -79,13 +80,19 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 5.0,
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Versi Aplikasi 1.0.0',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Theme.of(context).primaryColor,
+                Container(
+                  height: MediaQuery.of(context).size.height *
+                      0.05, // adjust the fraction to position the text higher or lower
+                  width: double.infinity,
+                  color: Theme.of(context).colorScheme.background,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      'Versi Aplikasi 1.0.0',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                 ),

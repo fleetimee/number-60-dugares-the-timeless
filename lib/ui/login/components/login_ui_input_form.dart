@@ -85,11 +85,12 @@ class _LoginPageFormState extends State<LoginPageForm> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 20.0,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.10, //
         ),
         SizedBox(
             width: double.infinity,
+            height: 55,
             child: _isLoading
                 ? const HorizontalLoadingIndicator()
                 : ElevatedButton(
