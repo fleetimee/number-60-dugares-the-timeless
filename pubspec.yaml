@@ -16,6 +16,8 @@ dependencies:
   flutter_svg: ^2.0.5
   form_builder_validators: ^8.6.1
   google_fonts: ^4.0.4
+  lottie: ^2.3.2
+  modal_bottom_sheet: ^3.0.0-pre
   responsive_framework: ^1.0.0
 
 dev_dependencies:

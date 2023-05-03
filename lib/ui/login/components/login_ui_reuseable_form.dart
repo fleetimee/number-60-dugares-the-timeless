@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 
 class LoginReuseableTextFormField extends StatelessWidget {
   const LoginReuseableTextFormField({
@@ -10,6 +9,8 @@ class LoginReuseableTextFormField extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     this.obscureText,
+    this.validator,
+    this.controller,
   });
 
   final String name;
@@ -17,11 +18,14 @@ class LoginReuseableTextFormField extends StatelessWidget {
   final IconData prefixIcon;
   final Widget? suffixIcon;
   final bool? obscureText;
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
       name: name,
+      controller: controller,
       decoration: InputDecoration(
         iconColor: Colors.blue,
         hintText: hintText,
@@ -37,11 +41,7 @@ class LoginReuseableTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
       ),
       obscureText: obscureText ?? false,
-      validator: FormBuilderValidators.compose(
-        [
-          FormBuilderValidators.required(),
-        ],
-      ),
+      validator: validator,
     );
   }
 }
