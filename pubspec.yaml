@@ -8,17 +8,25 @@ environment:
 
 dependencies:
   animated_text_kit: ^4.2.2
+  cached_network_image: ^3.2.3
   flex_color_scheme: ^7.0.5
   flutter:
     sdk: flutter
   flutter_custom_clippers: ^2.1.0
   flutter_form_builder: ^8.0.0
+  flutter_map: ^4.0.0
   flutter_svg: ^2.0.5
   form_builder_validators: ^8.6.1
+  geocoding: ^2.1.0
+  geolocator: ^9.0.2
   google_fonts: ^4.0.4
+  intl: ^0.17.0
+  latlong2: ^0.8.1
   lottie: ^2.3.2
   modal_bottom_sheet: ^3.0.0-pre
   responsive_framework: ^1.0.0
+  simple_gradient_text: ^1.2.4
+  slide_action: ^0.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,7 +1,6 @@
 import 'package:bpd_hris/ui/login/components/login_ui_input_form.dart';
 import 'package:bpd_hris/widget/appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,8 +8,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormBuilderState> fbKey = GlobalKey<FormBuilderState>();
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0), // here the desired height
@@ -66,16 +63,11 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 16.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
+                const Padding(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 16.0,
                   ),
-                  child: FormBuilder(
-                    key: fbKey,
-                    child: LoginPageForm(
-                      fbKey: fbKey,
-                    ),
-                  ),
+                  child: LoginPageForm(),
                 ),
                 const SizedBox(
                   height: 5.0,

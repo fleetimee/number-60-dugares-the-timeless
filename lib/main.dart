@@ -1,4 +1,4 @@
-import 'package:bpd_hris/ui/login/login_ui.dart';
+import 'package:bpd_hris/ui/presence_maps/presence_maps_ui.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const PresenceMapPage(),
     );
   }
 }

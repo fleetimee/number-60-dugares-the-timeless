@@ -31,12 +31,45 @@ class LoginReuseableTextFormField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         iconColor: Colors.blue,
+        prefixIconColor: Theme.of(context).primaryColor,
         hintText: hintText,
         hintStyle: const TextStyle(
           fontSize: 18,
         ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.blue,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          ),
+          borderRadius: const BorderRadius.all(
             Radius.circular(10.0),
           ),
         ),
