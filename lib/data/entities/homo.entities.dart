@@ -1,4 +1,5 @@
 import 'package:bpd_hris/common/const/string_constant.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 class HomeMenuGridEntities {
@@ -29,6 +30,15 @@ class HomeHelpListEntities {
     required this.onTap,
     required this.date,
   });
+}
+
+class HomeButtonEntities {
+  final String title;
+  final IconData icon;
+  final String routeName;
+
+  HomeButtonEntities(
+      {required this.title, required this.icon, required this.routeName});
 }
 
 class HomeShortcutGridEntities {
@@ -163,5 +173,23 @@ final List<HomeShortcutGridEntities> homeShortcutGridEntities = [
     title: StringConstant.cctv,
     imagePath: 'assets/images/home_shortcut_grid_cctv.png',
     onTap: () {},
+  ),
+];
+
+final List<HomeButtonEntities> homeButtonEntitiesList = [
+  HomeButtonEntities(
+    title: 'Presensi',
+    icon: FluentIcons.fingerprint_48_regular,
+    routeName: '/presence',
+  ),
+  HomeButtonEntities(
+    title: 'Izin',
+    icon: FluentIcons.notepad_32_regular,
+    routeName: '/presence',
+  ),
+  HomeButtonEntities(
+    title: 'Penghasilan',
+    icon: FluentIcons.wallet_48_regular,
+    routeName: '/presence',
   ),
 ];

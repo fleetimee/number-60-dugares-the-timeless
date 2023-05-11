@@ -1,11 +1,10 @@
 import 'package:bpd_hris/data/entities/homo.entities.dart';
-import 'package:bpd_hris/ui/home/components/home_ui_header_text.dart';
-import 'package:bpd_hris/ui/home/components/home_ui_help_menu_card.dart';
-import 'package:bpd_hris/ui/home/components/home_ui_service_menu_card.dart';
+import 'package:bpd_hris/ui/home/components/home_ui_date_card.dart';
 import 'package:bpd_hris/ui/home/components/home_ui_top_card.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-
-import '../../common/const/string_constant.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -14,123 +13,318 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const HomeTopCard(),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ),
-                  child: HomeHeaderText(
-                    title: StringConstant.service,
-                    subtitle: StringConstant.serviceSubtitle,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  height: 300,
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: homeMenuGridEntities.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 0.7,
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 8,
-                    ),
-                    itemBuilder: (context, index) {
-                      return HomeMenuGrid(
-                        imagePath: homeMenuGridEntities[index].imagePath,
-                        title: homeMenuGridEntities[index].title,
-                        index: index,
-                      );
-                    },
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ),
-                  child: HomeHeaderText(
-                    title: StringConstant.help,
-                    subtitle: StringConstant.helpSubtitle,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  height: 300,
-                  child: ListView.separated(
-                    itemCount: homeHelpListEntities.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        width: 18.0,
-                      );
-                    },
-                    itemBuilder: (context, index) {
-                      return HomeHelpListCard(
-                        index: index,
-                      );
-                    },
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ),
-                  child: HomeHeaderText(
-                    title: StringConstant.shortcut,
-                    subtitle: StringConstant.shortcutSubtitle,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  height: 150,
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: homeShortcutGridEntities.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 0.6,
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 8,
-                    ),
-                    itemBuilder: (context, index) {
-                      return HomeMenuGrid(
-                        imagePath: homeShortcutGridEntities[index].imagePath,
-                        title: homeShortcutGridEntities[index].title,
-                        index: index,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size(
+          double.infinity,
+          60,
+        ),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            'BPDDIY HRMIS',
           ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications_outlined,
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                // Trigger popup menu button on click
+                showMenu(
+                  context: context,
+                  position: const RelativeRect.fromLTRB(
+                    100,
+                    75,
+                    0,
+                    0,
+                  ),
+                  items: [
+                    const PopupMenuItem(
+                      child: Text(
+                        'Logout',
+                      ),
+                    ),
+                  ],
+                );
+              },
+              icon: const Icon(
+                Icons.more_vert_outlined,
+              ),
+            ),
+          ],
         ),
       ),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            ClipPath(
+              clipper: WaveClipperTwo(),
+              child: Container(
+                height: 150,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            Positioned(
+              child: ClipPath(
+                clipper: WaveClipperOne(
+                    reverse: false), // Custom clipper for the bottom wave
+                child: Container(
+                  height: 150,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+            const BpdDiyHomeBody(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BpdDiyHomeBody extends StatelessWidget {
+  const BpdDiyHomeBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const HomeTopCard(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+          Stack(
+            children: [
+              Container(
+                transform: Matrix4.translationValues(-100, 35, 0),
+                height: 150,
+                width: double.infinity,
+                child: ClipPath(
+                  clipper:
+                      WaveClipperTwo(), // Custom clipper for the bottom wave
+                  child: Container(
+                    height: 150,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const HomeCutiCard(
+                    day: '8',
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  const HomeDateCard(),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.17,
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey.withOpacity(0.5),
+              ),
+            ),
+            child: Center(
+              child: GridView.builder(
+                itemCount: homeButtonEntitiesList.length,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 2,
+                ),
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          context.push(homeButtonEntitiesList[index].routeName);
+                        },
+                        icon: Icon(
+                          homeButtonEntitiesList[index].icon,
+                          size: 48,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 1.0,
+                      ),
+                      Text(
+                        homeButtonEntitiesList[index].title,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.03,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      FluentIcons.service_bell_24_regular,
+                    ),
+                  ),
+                  const Text(
+                    'Informasi',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Lihat Semua',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          )
+          // SizedBox(
+          //   height: 300,
+          //   child: ListView.separated(
+          //     itemCount: homeHelpListEntities.length,
+          //     shrinkWrap: true,
+          //     scrollDirection: Axis.horizontal,
+          //     separatorBuilder: (context, index) {
+          //       return const SizedBox(
+          //         width: 18.0,
+          //       );
+          //     },
+          //     itemBuilder: (context, index) {
+          //       return HomeHelpListCard(
+          //         index: index,
+          //       );
+          //     },
+          //   ),
+          // ),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(
+          //     horizontal: 8,
+          //   ),
+          //   child: HomeHeaderText(
+          //     title: StringConstant.shortcut,
+          //     subtitle: StringConstant.shortcutSubtitle,
+          //   ),
+          // ),
+          // const SizedBox(
+          //   height: 20.0,
+          // ),
+          // SizedBox(
+          //   height: 150,
+          //   child: GridView.builder(
+          //     physics: const NeverScrollableScrollPhysics(),
+          //     itemCount: homeShortcutGridEntities.length,
+          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 4,
+          //       childAspectRatio: 0.6,
+          //       mainAxisSpacing: 24,
+          //       crossAxisSpacing: 8,
+          //     ),
+          //     itemBuilder: (context, index) {
+          //       return HomeMenuGrid(
+          //         imagePath: homeShortcutGridEntities[index].imagePath,
+          //         title: homeShortcutGridEntities[index].title,
+          //         index: index,
+          //       );
+          //     },
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeCutiCard extends StatelessWidget {
+  const HomeCutiCard({
+    super.key,
+    required this.day,
+  });
+
+  final String day;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity * 0.3,
+      height: MediaQuery.of(context).size.height * 0.04,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF1E88E5),
+            Color(0xFF64B5F6),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16.0,
+          ),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 10,
+                child: Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: Theme.of(context).primaryColor,
+                  size: 12,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Sisa Cuti Tahunan Anda $day Hari',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

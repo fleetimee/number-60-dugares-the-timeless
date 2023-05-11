@@ -1,5 +1,5 @@
 class StringConstant {
-  static const String welcomeMessage = 'Selamat datang,';
+  static const String welcomeMessage = 'Hello,';
   static const String jogjaSmartService = 'HRIMS Bank BPD DIY';
   static const String login = 'Masuk';
   static const String motto = 'Otonomi Daerah Maju, Indonesia Unggul';

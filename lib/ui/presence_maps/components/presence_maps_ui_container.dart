@@ -322,15 +322,24 @@ class _AnimatedTimeWidgetState extends State<AnimatedTimeWidget> {
     Timer.periodic(const Duration(seconds: 1), (Timer t) => _getCurrentTime());
   }
 
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed
+    super.dispose();
+    // stop listening to the timer when the widget is disposed
+  }
+
   void _getCurrentTime() {
-    setState(() {
-      // Get the current time
-      DateTime now = DateTime.now();
-      String hours = _twoDigits(now.hour);
-      String minutes = _twoDigits(now.minute);
-      String seconds = _twoDigits(now.second);
-      currentTime = '$hours : $minutes : $seconds';
-    });
+    if (mounted) {
+      setState(() {
+        // Update the state only if the widget is still in the tree
+        DateTime now = DateTime.now();
+        String hours = _twoDigits(now.hour);
+        String minutes = _twoDigits(now.minute);
+        String seconds = _twoDigits(now.second);
+        currentTime = '$hours : $minutes : $seconds';
+      });
+    }
   }
 
   String _twoDigits(int n) {

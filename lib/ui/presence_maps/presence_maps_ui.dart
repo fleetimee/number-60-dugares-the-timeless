@@ -1,6 +1,7 @@
 import 'package:bpd_hris/ui/presence_maps/components/presence_maps_ui_background_map.dart';
 import 'package:bpd_hris/ui/presence_maps/components/presence_maps_ui_container.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PresenceMapPage extends StatefulWidget {
   const PresenceMapPage({super.key});
@@ -32,7 +33,9 @@ class _PresenceMapPageState extends State<PresenceMapPage> {
               minRadius: 20,
               backgroundColor: Colors.white,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pop();
+                },
                 icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,

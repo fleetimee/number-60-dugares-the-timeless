@@ -1,8 +1,9 @@
 import 'package:bpd_hris/common/utils/app_providers.dart';
 import 'package:bpd_hris/common/utils/geolocator_listener.dart';
-import 'package:bpd_hris/ui/presence_maps/presence_maps_ui.dart';
+import 'package:bpd_hris/common/utils/router.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -17,7 +18,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppProvider(
       child: GeolocatorListener(
-        child: MaterialApp(
+        child: MaterialApp.router(
           builder: (context, child) => ResponsiveBreakpoints.builder(
             child: child!,
             breakpoints: [
@@ -33,8 +34,17 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
             fontFamily: GoogleFonts.poppins().fontFamily,
           ),
+          routerConfig: router,
           debugShowCheckedModeBanner: false,
-          home: const PresenceMapPage(),
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('id'),
+          ],
+          locale: const Locale('id'),
         ),
       ),
     );

@@ -153,6 +153,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   characters:
     dependency: transitive
     description:
@@ -273,6 +281,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.4"
+  fluentui_system_icons:
+    dependency: "direct main"
+    description:
+      name: fluentui_system_icons
+      sha256: ae3685648c572fa8011cec8d59a36278fa500d29f7164d4e769551d48b3ce8af
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.200"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -541,6 +557,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "73a50070c125c90f9960aad4da9e4a95d94558230727f145ac634528da1e75e3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   google_fonts:
     dependency: "direct main"
     description:

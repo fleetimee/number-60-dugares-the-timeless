@@ -10,19 +10,20 @@ class HomeTopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.28,
       width: double.infinity * 0.3,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
+      decoration: const BoxDecoration(
+        // color: Color(0xFF1E88E5),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF1E88E5),
+            Color(0xFF64B5F6),
+          ],
         ),
-        image: DecorationImage(
-          image: const AssetImage('assets/images/home_banner_image.jpg'),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.blueAccent.shade700.withOpacity(0.9),
-            BlendMode.darken,
-          ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(16),
         ),
       ),
       child: Column(
@@ -57,25 +58,40 @@ class HomeTopCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: 16.0,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  StringConstant.welcomeMessage,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${StringConstant.welcomeMessage} Novian Andika',
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 3.0,
+                    ),
+                    Text(
+                      'Analis Kredit',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 3.0,
-                ),
-                Text(
-                  StringConstant.jogjaSmartService,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 28,
+                    backgroundImage: AssetImage(
+                      'assets/images/home_profile_picture.jpg',
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -90,7 +106,7 @@ class HomeTopCard extends StatelessWidget {
             child: AnimatedTextKit(
               animatedTexts: [
                 TypewriterAnimatedText(
-                  'Super App',
+                  'Presensi Online',
                   textStyle: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
@@ -99,7 +115,7 @@ class HomeTopCard extends StatelessWidget {
                   speed: const Duration(milliseconds: 100),
                 ),
                 TypewriterAnimatedText(
-                  'Presensi',
+                  'Riwayat Presensi',
                   textStyle: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
@@ -117,7 +133,25 @@ class HomeTopCard extends StatelessWidget {
                   speed: const Duration(milliseconds: 100),
                 ),
                 TypewriterAnimatedText(
-                  'Slip Gaji',
+                  'Pengajuan Tidak Masuk Kerja',
+                  textStyle: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                  speed: const Duration(milliseconds: 100),
+                ),
+                TypewriterAnimatedText(
+                  'Pengajuan Pulang Cepat',
+                  textStyle: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                  speed: const Duration(milliseconds: 100),
+                ),
+                TypewriterAnimatedText(
+                  'Slip Penghasilan',
                   textStyle: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
