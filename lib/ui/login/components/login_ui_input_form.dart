@@ -196,9 +196,9 @@ class _LoginPageFormState extends State<LoginPageForm> {
                         //   );
                         // });
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.login_outlined,
                             color: Colors.white,
