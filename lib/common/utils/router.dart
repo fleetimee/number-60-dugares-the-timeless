@@ -1,6 +1,7 @@
 import 'package:bpd_hris/common/utils/transisiton.dart';
 import 'package:bpd_hris/ui/home/home_ui.dart';
 import 'package:bpd_hris/ui/presence_maps/presence_maps_ui.dart';
+import 'package:bpd_hris/ui/salary/salary_ui.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
@@ -23,6 +24,15 @@ final router = GoRouter(
         state: state,
         child: const PresenceMapPage(),
       ),
-    )
+    ),
+    GoRoute(
+      path: '/salary',
+      builder: (context, state) => const SalaryPage(),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: const SalaryPage(),
+      ),
+    ),
   ],
 );

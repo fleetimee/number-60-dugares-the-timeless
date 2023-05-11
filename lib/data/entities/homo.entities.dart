@@ -190,6 +190,6 @@ final List<HomeButtonEntities> homeButtonEntitiesList = [
   HomeButtonEntities(
     title: 'Penghasilan',
     icon: FluentIcons.wallet_48_regular,
-    routeName: '/presence',
+    routeName: '/salary',
   ),
 ];

@@ -1,6 +1,7 @@
 import 'package:bpd_hris/data/entities/homo.entities.dart';
 import 'package:bpd_hris/ui/home/components/home_ui_date_card.dart';
 import 'package:bpd_hris/ui/home/components/home_ui_top_card.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -61,11 +62,14 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            ClipPath(
-              clipper: WaveClipperTwo(),
-              child: Container(
-                height: 150,
-                color: Theme.of(context).primaryColor,
+            Positioned(
+              top: 0,
+              child: ClipPath(
+                clipper: WaveClipperTwo(),
+                child: Container(
+                  height: 150,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
             Positioned(
@@ -101,12 +105,12 @@ class BpdDiyHomeBody extends StatelessWidget {
         children: [
           const HomeTopCard(),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
+            height: MediaQuery.of(context).size.height * 0.03,
           ),
           Stack(
             children: [
               Container(
-                transform: Matrix4.translationValues(-100, 35, 0),
+                transform: Matrix4.translationValues(50, 70, 0),
                 height: 150,
                 width: double.infinity,
                 child: ClipPath(
@@ -118,71 +122,30 @@ class BpdDiyHomeBody extends StatelessWidget {
                   ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const HomeCutiCard(
-                    day: '8',
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  const HomeDateCard(),
-                ],
-              ),
+              const HomeCardButton(),
             ],
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
+            height: MediaQuery.of(context).size.height * 0.01,
           ),
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.17,
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey.withOpacity(0.5),
-              ),
-            ),
-            child: Center(
-              child: GridView.builder(
-                itemCount: homeButtonEntitiesList.length,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 2,
+          Stack(
+            clipBehavior: Clip.antiAlias,
+            children: [
+              Container(
+                transform: Matrix4.translationValues(-30, -31, 0),
+                height: 150,
+                width: double.infinity,
+                child: ClipPath(
+                  clipper:
+                      DiagonalPathClipperTwo(), // Custom clipper for the bottom wave
+                  child: Container(
+                    height: 150,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          context.push(homeButtonEntitiesList[index].routeName);
-                        },
-                        icon: Icon(
-                          homeButtonEntitiesList[index].icon,
-                          size: 48,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 1.0,
-                      ),
-                      Text(
-                        homeButtonEntitiesList[index].title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  );
-                },
               ),
-            ),
+              const HomeDateCard(),
+            ],
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.03,
@@ -218,58 +181,71 @@ class BpdDiyHomeBody extends StatelessWidget {
                 ),
               ),
             ],
-          )
-          // SizedBox(
-          //   height: 300,
-          //   child: ListView.separated(
-          //     itemCount: homeHelpListEntities.length,
-          //     shrinkWrap: true,
-          //     scrollDirection: Axis.horizontal,
-          //     separatorBuilder: (context, index) {
-          //       return const SizedBox(
-          //         width: 18.0,
-          //       );
-          //     },
-          //     itemBuilder: (context, index) {
-          //       return HomeHelpListCard(
-          //         index: index,
-          //       );
-          //     },
-          //   ),
-          // ),
-          // const Padding(
-          //   padding: EdgeInsets.symmetric(
-          //     horizontal: 8,
-          //   ),
-          //   child: HomeHeaderText(
-          //     title: StringConstant.shortcut,
-          //     subtitle: StringConstant.shortcutSubtitle,
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 20.0,
-          // ),
-          // SizedBox(
-          //   height: 150,
-          //   child: GridView.builder(
-          //     physics: const NeverScrollableScrollPhysics(),
-          //     itemCount: homeShortcutGridEntities.length,
-          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 4,
-          //       childAspectRatio: 0.6,
-          //       mainAxisSpacing: 24,
-          //       crossAxisSpacing: 8,
-          //     ),
-          //     itemBuilder: (context, index) {
-          //       return HomeMenuGrid(
-          //         imagePath: homeShortcutGridEntities[index].imagePath,
-          //         title: homeShortcutGridEntities[index].title,
-          //         index: index,
-          //       );
-          //     },
-          //   ),
-          // ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.03,
+          ),
+          const SliderContainer()
         ],
+      ),
+    );
+  }
+}
+
+class HomeCardButton extends StatelessWidget {
+  const HomeCardButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.17,
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.white,
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.5),
+        ),
+      ),
+      child: Center(
+        child: GridView.builder(
+          itemCount: homeButtonEntitiesList.length,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 1,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 2,
+          ),
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    context.push(homeButtonEntitiesList[index].routeName);
+                  },
+                  icon: Icon(
+                    homeButtonEntitiesList[index].icon,
+                    size: 48,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 1.0,
+                ),
+                Text(
+                  homeButtonEntitiesList[index].title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -325,6 +301,80 @@ class HomeCutiCard extends StatelessWidget {
               ),
             ],
           )),
+    );
+  }
+}
+
+class SliderContainer extends StatefulWidget {
+  const SliderContainer({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _SliderContainerState createState() => _SliderContainerState();
+}
+
+class _SliderContainerState extends State<SliderContainer> {
+  final List<String> items = [
+    'Slide 1',
+    'Slide 2',
+    'Slide 3',
+  ];
+
+  int _currentIndex = 0;
+  CarouselController carouselController = CarouselController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CarouselSlider(
+          items: items.map((item) {
+            return Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.5),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  item,
+                  style: const TextStyle(fontSize: 22.0),
+                ),
+              ),
+            );
+          }).toList(),
+          carouselController: carouselController,
+          options: CarouselOptions(
+            height: 150.0,
+            enableInfiniteScroll: false,
+            enlargeCenterPage: true,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: items.map((item) {
+            int index = items.indexOf(item);
+            return Container(
+              width: 8.0,
+              height: 8.0,
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }
