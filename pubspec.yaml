@@ -39,6 +39,9 @@ dependencies:
   slide_action: ^0.0.2
   webview_flutter: ^4.2.0
 
+dependency_overrides:
+  intl: ^0.17.0
+
 dev_dependencies:
   build_runner: ^2.4.4
   flutter_lints: ^2.0.1

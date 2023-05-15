@@ -110,12 +110,12 @@ class BpdDiyHomeBody extends StatelessWidget {
           Stack(
             children: [
               Container(
-                transform: Matrix4.translationValues(50, 70, 0),
+                transform: Matrix4.translationValues(-50, 70, 0),
                 height: 150,
                 width: double.infinity,
                 child: ClipPath(
                   clipper:
-                      WaveClipperTwo(), // Custom clipper for the bottom wave
+                      WaveClipperOne(), // Custom clipper for the bottom wave
                   child: Container(
                     height: 150,
                     color: Theme.of(context).primaryColor,
@@ -132,12 +132,12 @@ class BpdDiyHomeBody extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             children: [
               Container(
-                transform: Matrix4.translationValues(-30, -31, 0),
+                transform: Matrix4.translationValues(-30, 0, 0),
                 height: 150,
                 width: double.infinity,
                 child: ClipPath(
                   clipper:
-                      DiagonalPathClipperTwo(), // Custom clipper for the bottom wave
+                      WaveClipperTwo(), // Custom clipper for the bottom wave
                   child: Container(
                     height: 150,
                     color: Theme.of(context).primaryColor,
