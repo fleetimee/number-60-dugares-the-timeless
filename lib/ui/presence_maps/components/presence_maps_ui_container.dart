@@ -12,11 +12,7 @@ class PresenceMapFloatingContainer extends StatefulWidget {
     super.key,
     required bool inPresence,
     required bool outPresence,
-  })  : _inPresence = inPresence,
-        _outPresence = outPresence;
-
-  final bool _inPresence;
-  final bool _outPresence;
+  });
 
   @override
   State<PresenceMapFloatingContainer> createState() =>
