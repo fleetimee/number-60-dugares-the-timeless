@@ -27,6 +27,8 @@ class _PresenceMapFloatingContainerState
     Colors.blue,
   ];
 
+  bool _showDetails = false;
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -37,6 +39,26 @@ class _PresenceMapFloatingContainerState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _showDetails = !_showDetails;
+                  });
+                },
+                icon: CircleAvatar(
+                  radius: 20.0,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    !_showDetails
+                        ? Icons.expand_more_outlined
+                        : Icons.expand_less_outlined,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.10,
               width: MediaQuery.of(context).size.width * 2,
@@ -58,214 +80,18 @@ class _PresenceMapFloatingContainerState
                 ),
               ),
             ),
-            const SizedBox(height: 16.0),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.40,
-              width: MediaQuery.of(context).size.width * 2,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8.0,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ListTile(
-                      dense: true,
-                      title: Row(
-                        children: [
-                          Text(
-                            'Dalam Area Presensi',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green.shade900,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 2.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.red.shade100,
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: const Text(
-                              'Pulang',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      subtitle: const Text(
-                        'Jln. Letnan Jenderal S. Parman No. 28, Kota Semarang',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    SlideAction(
-                      trackBuilder: (context, state) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.grey.withOpacity(0.2),
-                          ),
-                          child: Center(
-                            child: state.isPerformingAction
-                                ? const CupertinoActivityIndicator()
-                                : GradientText(
-                                    gradientDirection: GradientDirection.ltr,
-                                    gradientType: GradientType.linear,
-                                    'Geser untuk Presensi',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.0,
-                                    ),
-                                    colors: [
-                                      Colors.blue.shade900,
-                                      Colors.blue.shade500,
-                                    ],
-                                  ),
-                          ),
-                        );
-                      },
-                      thumbBuilder: (context, state) {
-                        return Container(
-                          margin: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            // Show loading indicator if async operation is being performed
-                            child: state.isPerformingAction
-                                ? const CupertinoActivityIndicator(
-                                    color: Colors.white,
-                                  )
-                                : const Icon(
-                                    Icons.fingerprint,
-                                    color: Colors.white,
-                                  ),
-                          ),
-                        );
-                      },
-                      action: () async {
-                        // Async operation
-                        await Future.delayed(
-                          const Duration(seconds: 2),
-                          () => debugPrint("Hello World"),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12.0),
-                    ListTile(
-                      horizontalTitleGap: 0.0,
-                      leading: Icon(
-                        Icons.login,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      dense: true,
-                      title: Row(
-                        children: [
-                          const Text(
-                            '07.30',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 2.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.green.shade100,
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: const Text(
-                              'Selasa, 12 Januari 2023',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      subtitle: const Text(
-                        'Berhasil presensi pukul 07.30.29',
-                      ),
-                      trailing: Icon(
-                        Icons.check_circle,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 0.0,
-                      leading: const Icon(
-                        Icons.logout,
-                        color: Colors.grey,
-                      ),
-                      dense: true,
-                      title: Row(
-                        children: [
-                          const Text(
-                            '07.30',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 2.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.green.shade100,
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: const Text(
-                              'Selasa, 12 Januari 2023',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      subtitle: const Text(
-                        'Belum melakukan presensi',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      trailing: const Icon(
-                        Icons.hourglass_bottom,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const SizedBox(height: 8.0),
+            AnimatedSwitcher(
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return SizeTransition(
+                  sizeFactor: animation,
+                  child: child,
+                );
+              },
+              duration: const Duration(milliseconds: 300),
+              child: !_showDetails
+                  ? const PresenceMapsFloatingContainerDetails()
+                  : const SizedBox(),
             ),
             const SizedBox(height: 12.0),
             ElevatedButton.icon(
@@ -291,6 +117,224 @@ class _PresenceMapFloatingContainerState
                   color: Colors.white,
                   fontSize: 16.0,
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PresenceMapsFloatingContainerDetails extends StatelessWidget {
+  const PresenceMapsFloatingContainerDetails({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.41,
+      width: MediaQuery.of(context).size.width * 2,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8.0,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
+              dense: true,
+              title: Row(
+                children: [
+                  Text(
+                    'Dalam Area Presensi',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green.shade900,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade100,
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: const Text(
+                      'Pulang',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              subtitle: const Text(
+                'Jln. Letnan Jenderal S. Parman No. 28, Kota Semarang',
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            SlideAction(
+              trackBuilder: (context, state) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.grey.withOpacity(0.2),
+                  ),
+                  child: Center(
+                    child: state.isPerformingAction
+                        ? const CupertinoActivityIndicator()
+                        : GradientText(
+                            gradientDirection: GradientDirection.ltr,
+                            gradientType: GradientType.linear,
+                            'Geser untuk Presensi',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
+                            ),
+                            colors: [
+                              Colors.blue.shade900,
+                              Colors.blue.shade500,
+                            ],
+                          ),
+                  ),
+                );
+              },
+              thumbBuilder: (context, state) {
+                return Container(
+                  margin: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Center(
+                    // Show loading indicator if async operation is being performed
+                    child: state.isPerformingAction
+                        ? const CupertinoActivityIndicator(
+                            color: Colors.white,
+                          )
+                        : const Icon(
+                            Icons.fingerprint,
+                            color: Colors.white,
+                          ),
+                  ),
+                );
+              },
+              action: () async {
+                // Async operation
+                await Future.delayed(
+                  const Duration(seconds: 2),
+                  () => debugPrint("Hello World"),
+                );
+              },
+            ),
+            const SizedBox(height: 12.0),
+            ListTile(
+              // horizontalTitleGap: 0.0,
+              leading: Icon(
+                Icons.login,
+                color: Theme.of(context).primaryColor,
+              ),
+              dense: true,
+              title: Row(
+                children: [
+                  const Text(
+                    '07.30',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade100,
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: const Text(
+                      '12 Januari 2023',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              subtitle: const Text(
+                'Berhasil presensi pukul 07.30.29',
+              ),
+              trailing: Icon(
+                Icons.check_circle,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            ListTile(
+              // horizontalTitleGap: 0.0,
+              leading: const Icon(
+                Icons.logout,
+                color: Colors.grey,
+              ),
+              dense: true,
+              title: Row(
+                children: [
+                  const Text(
+                    '07.30',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade100,
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: const Text(
+                      '12 Januari 2023',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              subtitle: const Text(
+                'Belum melakukan presensi',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              trailing: const Icon(
+                Icons.hourglass_bottom,
+                color: Colors.grey,
               ),
             ),
           ],
