@@ -401,7 +401,7 @@ class _AnimatedTimeWidgetState extends State<AnimatedTimeWidget> {
         ),
         const SizedBox(height: 8.0),
         Text(
-          DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
+          DateFormat('EEEE, d MMMM yyyy', 'id').format(DateTime.now()),
           style: const TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
