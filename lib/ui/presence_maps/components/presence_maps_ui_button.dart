@@ -13,6 +13,7 @@ class PresenceMapButtonState extends State<PresenceMapButton>
   late AnimationController controller;
 
   bool _isCheckIn = false;
+  bool _isButtonHeld = false;
 
   @override
   void initState() {
@@ -34,19 +35,25 @@ class PresenceMapButtonState extends State<PresenceMapButton>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) => controller.forward().then(
-            (value) => {
-              controller.reverse(),
-              if (controller.value == 1.0)
-                {
-                  setState(() {
-                    _isCheckIn = !_isCheckIn;
-                  }),
-                  print(_isCheckIn)
-                }
-            },
-          ),
+      onTapDown: (_) {
+        setState(() {
+          _isButtonHeld =
+              true; // Set _isButtonHeld to true when button is held down
+        });
+        controller.forward().then((value) {
+          controller.reverse();
+          if (controller.value == 1.0) {
+            setState(() {
+              _isCheckIn = !_isCheckIn;
+            });
+          }
+        });
+      },
       onTapUp: (_) {
+        setState(() {
+          _isButtonHeld =
+              false; // Set _isButtonHeld to false when button is released
+        });
         if (controller.status == AnimationStatus.forward) {
           controller.reverse();
         }
@@ -88,10 +95,6 @@ class PresenceMapButtonState extends State<PresenceMapButton>
                         end: Alignment.bottomLeft,
                       ),
               ),
-              // child: const CircularProgressIndicator(
-              //   value: 1.0,
-              //   valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-              // ),
             ),
           ),
           SizedBox(
@@ -105,16 +108,26 @@ class PresenceMapButtonState extends State<PresenceMapButton>
           Column(
             children: [
               Icon(
-                !_isCheckIn ? Icons.fingerprint_outlined : Icons.fingerprint,
-                size: 58.0,
+                _isButtonHeld
+                    ? Icons.touch_app_outlined
+                    : !_isCheckIn
+                        ? Icons.fingerprint_outlined
+                        : Icons.fingerprint_sharp,
+                size: MediaQuery.of(context).size.height * 0.08,
                 color: Colors.white,
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(
+                height: 8.0,
+              ),
               Text(
-                !_isCheckIn ? 'Check In' : 'Check Out',
+                _isButtonHeld
+                    ? 'Tahan'
+                    : !_isCheckIn
+                        ? 'Check In'
+                        : 'Check Out',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
