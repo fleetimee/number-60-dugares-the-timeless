@@ -9,8 +9,9 @@ class PresenceMapButton extends StatefulWidget {
 }
 
 class PresenceMapButtonState extends State<PresenceMapButton>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController controller;
+  late AnimationController _pulsingController;
 
   bool _isCheckIn = false;
   bool _isButtonHeld = false;
@@ -25,11 +26,27 @@ class PresenceMapButtonState extends State<PresenceMapButton>
         seconds: 1,
       ),
     );
+
     controller.addListener(() {
       setState(() {
         // The state that has changed here is the animation object’s value.
       });
     });
+
+    _pulsingController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..addListener(() {
+            setState(() {});
+          })
+          ..repeat();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed
+    controller.dispose();
+    _pulsingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,36 +81,42 @@ class PresenceMapButtonState extends State<PresenceMapButton>
           AvatarGlow(
             glowColor: Theme.of(context).primaryColor,
             endRadius: 90.0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.height * 0.18,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Theme.of(context).primaryColor,
-                    blurRadius: 40.0,
-                    offset: const Offset(0, 12),
-                    spreadRadius: -5.0,
-                  ),
-                ],
-                gradient: !_isCheckIn
-                    ? const LinearGradient(
-                        colors: [
-                          Colors.green,
-                          Colors.greenAccent,
-                        ],
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                      )
-                    : const LinearGradient(
-                        colors: [
-                          Colors.red,
-                          Colors.redAccent,
-                        ],
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                      ),
+            child: ScaleTransition(
+              scale: Tween<double>(
+                begin: 1.0,
+                end: 1.2,
+              ).animate(controller),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.18,
+                width: MediaQuery.of(context).size.height * 0.18,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).primaryColor,
+                      blurRadius: 40.0,
+                      offset: const Offset(0, 12),
+                      spreadRadius: -5.0,
+                    ),
+                  ],
+                  gradient: !_isCheckIn
+                      ? const LinearGradient(
+                          colors: [
+                            Colors.green,
+                            Colors.greenAccent,
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        )
+                      : const LinearGradient(
+                          colors: [
+                            Colors.red,
+                            Colors.redAccent,
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        ),
+                ),
               ),
             ),
           ),
@@ -113,7 +136,8 @@ class PresenceMapButtonState extends State<PresenceMapButton>
                     : !_isCheckIn
                         ? Icons.fingerprint_outlined
                         : Icons.fingerprint_sharp,
-                size: MediaQuery.of(context).size.height * 0.08,
+                size: MediaQuery.of(context).size.height * 0.08 +
+                    (_pulsingController.value * 10),
                 color: Colors.white,
               ),
               const SizedBox(

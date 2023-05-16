@@ -9,8 +9,35 @@ class PermissionPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Ijin'),
       ),
-      body: const Center(
-        child: Text('Ijin'),
+      body: Row(
+        children: [
+          Column(
+            children: [
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: Theme.of(context).primaryColor,
+                  child: const Center(
+                    child: Text('Ijin'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  color: Colors.white,
+                  child: const Center(
+                    child: Text('Ijin'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

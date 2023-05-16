@@ -68,16 +68,18 @@ class _PresenceMapPageState extends State<PresenceMapPage> {
                     if (!_isMapVisible) {
                       CherryToast.success(
                         title: const Text('Menampilkan Peta'),
-                        toastPosition: Position.bottom,
-                        animationType: AnimationType.fromBottom,
+                        toastPosition: Position.top,
+                        animationType: AnimationType.fromLeft,
                         animationDuration: const Duration(milliseconds: 100),
+                        toastDuration: const Duration(seconds: 1),
                       ).show(context);
                     } else {
                       CherryToast.success(
                         title: const Text('Menyembunyikan Peta'),
-                        toastPosition: Position.bottom,
-                        animationType: AnimationType.fromBottom,
+                        toastPosition: Position.top,
+                        animationType: AnimationType.fromLeft,
                         animationDuration: const Duration(milliseconds: 100),
+                        toastDuration: const Duration(seconds: 1),
                       ).show(context);
                     }
                   },
