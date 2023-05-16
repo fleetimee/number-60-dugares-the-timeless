@@ -138,6 +138,19 @@ class _PresenceMapPageState extends State<PresenceMapPage> {
                   color: Theme.of(context).primaryColor.withOpacity(1),
                 ),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+              ),
+              ClipPath(
+                clipper: WaveClipperTwo(
+                  reverse: true,
+                  flip: true,
+                ),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  color: Theme.of(context).primaryColor.withOpacity(1),
+                ),
+              ),
             ],
           ),
           PresenceMapFloatingContainer(
