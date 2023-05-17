@@ -1,7 +1,9 @@
 import 'package:bpd_hris/ui/presence_maps/components/presence_maps_ui_background_map.dart';
 import 'package:bpd_hris/ui/presence_maps/components/presence_maps_ui_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
 
 class PresenceMapPage extends StatefulWidget {
   const PresenceMapPage({super.key});
@@ -10,7 +12,14 @@ class PresenceMapPage extends StatefulWidget {
   State<PresenceMapPage> createState() => _PresenceMapPageState();
 }
 
-class _PresenceMapPageState extends State<PresenceMapPage> {
+class _PresenceMapPageState extends State<PresenceMapPage>
+    with TickerProviderStateMixin {
+  // final MapController mapController = MapController();
+
+  late final mapController = AnimatedMapController(
+    vsync: this,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +64,15 @@ class _PresenceMapPageState extends State<PresenceMapPage> {
                 minRadius: 20,
                 backgroundColor: Colors.white,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // center the map to the current location from geolocator
+                    mapController.animateTo(
+                      dest: LatLng(
+                        -7.797068,
+                        110.370529,
+                      ),
+                    );
+                  },
                   icon: const Icon(
                     Icons.location_searching_outlined,
                     color: Colors.black,
@@ -66,11 +83,13 @@ class _PresenceMapPageState extends State<PresenceMapPage> {
           ),
         ],
       ),
-      body: const Stack(
+      body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          PresenceMapBackgroundMap(),
-          PresenceMapFloatingContainer(),
+          PresenceMapBackgroundMap(
+            mapController: mapController,
+          ),
+          const PresenceMapFloatingContainer(),
         ],
       ),
     );

@@ -17,7 +17,9 @@ class _PresenceMapTimerState extends State<PresenceMapTimer> {
   @override
   void initState() {
     super.initState();
-    // Start the timer when the widget is created
+    // Get the current time when the widget is created
+    _getCurrentTime();
+    // Start the timer to update the time every second
     Timer.periodic(const Duration(seconds: 1), (Timer t) => _getCurrentTime());
   }
 
@@ -36,7 +38,7 @@ class _PresenceMapTimerState extends State<PresenceMapTimer> {
         String hours = _twoDigits(now.hour);
         String minutes = _twoDigits(now.minute);
         String seconds = _twoDigits(now.second);
-        currentTime = '$hours : $minutes : $seconds';
+        currentTime = '$hours:$minutes:$seconds';
       });
     }
   }
@@ -53,17 +55,34 @@ class _PresenceMapTimerState extends State<PresenceMapTimer> {
         Text(
           currentTime,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 36,
+          style: TextStyle(
+            fontSize: 48,
+            color: Colors.grey.shade700,
             fontWeight: FontWeight.bold,
+            letterSpacing: 4,
+            // shadows: [
+            //   Shadow(
+            //     color: Colors.black87,
+            //     offset: Offset(5, 1),
+            //     blurRadius: 15,
+            //   )
+            // ],
           ),
         ),
         const SizedBox(height: 8.0),
         Text(
           DateFormat('EEEE, d MMMM yyyy', 'id').format(DateTime.now()),
-          style: const TextStyle(
-            fontSize: 18.0,
-            color: Colors.black,
+          style: TextStyle(
+            fontSize: 22.0,
+            color: Colors.grey.shade700,
+            fontWeight: FontWeight.bold,
+            // shadows: [
+            //   Shadow(
+            //     color: Colors.black54,
+            //     offset: Offset(5, 1),
+            //     blurRadius: 15,
+            //   )
+            // ],
           ),
           textAlign: TextAlign.center,
         ),

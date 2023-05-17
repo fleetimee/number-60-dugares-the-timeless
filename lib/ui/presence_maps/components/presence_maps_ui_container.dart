@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bpd_hris/ui/presence_maps/components/presence_maps_ui_timer.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
+import 'presence_maps_ui_checkin_content.dart';
+import 'presence_maps_ui_checkout_content.dart';
+
 class PresenceMapFloatingContainer extends StatefulWidget {
   const PresenceMapFloatingContainer({
     super.key,
@@ -25,64 +28,28 @@ class _PresenceMapFloatingContainerState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return ScaleTransition(
-                  scale: animation,
-                  child: child,
-                );
-              },
-              child: Container(
-                key: const ValueKey<bool>(false),
-                height: MediaQuery.of(context).size.height * 0.12,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                width: MediaQuery.of(context).size.width * 0.55,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: PresenceMapTimer(),
-                    ),
-                  ],
-                ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.15,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: PresenceMapTimer(),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.3),
-            // AnimatedSwitcher(
-            //   duration: const Duration(milliseconds: 500),
-            //   transitionBuilder: (Widget child, Animation<double> animation) {
-            //     return ScaleTransition(
-            //       scale: animation,
-            //       child: child,
-            //     );
-            //   },
-            //   child: !widget.isMapVisible
-            //       ? SizedBox(
-            //           key: const ValueKey<bool>(false),
-            //           height: MediaQuery.of(context).size.height * 0.22,
-            //         )
-            //       : const PresenceMapButton(),
-            // ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-
             Container(
-              key: const ValueKey<bool>(false),
               height: MediaQuery.of(context).size.height * 0.285,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -104,95 +71,74 @@ class _PresenceMapFloatingContainerState
             Row(
               children: [
                 Expanded(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(50),
-                        topRight: Radius.circular(-20),
-                      ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Theme.of(context).primaryColor,
-                          Colors.blue.shade900,
-                        ],
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        useSafeArea: true,
+                        showDragHandle: true,
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return const PresenceMapCheckinContent();
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      surfaceTintColor: Colors.white,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.5,
+                        ),
                       ),
                     ),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        disabledForegroundColor:
-                            Colors.transparent.withOpacity(0.38),
-                        disabledBackgroundColor:
-                            Colors.transparent.withOpacity(0.12),
-                        shadowColor: Colors.transparent,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(50),
-                            topRight: Radius.circular(-20),
-                          ),
-                        ),
-                      ),
-                      child: const Text(
-                        'Check In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    child: Text(
+                      'Check In',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                 Expanded(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        bottomLeft: Radius.circular(-20),
-                        bottomRight: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.red.shade700,
-                          Colors.red.shade500,
-                        ],
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        useSafeArea: true,
+                        showDragHandle: true,
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return const PresenceMapCheckOutContent();
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      backgroundColor: Colors.white,
+                      surfaceTintColor: Colors.white,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.5,
+                        ),
                       ),
                     ),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        disabledForegroundColor:
-                            Colors.transparent.withOpacity(0.38),
-                        disabledBackgroundColor:
-                            Colors.transparent.withOpacity(0.12),
-                        shadowColor: Colors.transparent,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            bottomLeft: Radius.circular(-20),
-                            bottomRight: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                      ),
-                      child: const Text(
-                        'Check Out',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    child: Text(
+                      'Check Out',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -223,7 +169,7 @@ class PresenceMapDetailContainer extends StatelessWidget {
               'Dalam Area Presensi',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.black54,
                 fontSize: 18,
               ),
               maxLines: 2,
@@ -234,16 +180,18 @@ class PresenceMapDetailContainer extends StatelessWidget {
               'Jln. Letnan Jenderal S. Parman No. 28, Kota Semarang (Kantor Pusat)',
               style: TextStyle(
                 fontSize: 14,
+                color: Colors.black45,
               ),
               maxLines: 2,
             ),
           ),
         ),
         ListTile(
+          horizontalTitleGap: 10,
           leading: Icon(
-            Icons.login,
+            FluentIcons.panel_right_contract_20_regular,
             color: Theme.of(context).primaryColor,
-            size: 30.0,
+            size: 35.0,
           ),
           dense: true,
           title: Row(
@@ -259,21 +207,35 @@ class PresenceMapDetailContainer extends StatelessWidget {
                   maxLines: 2,
                 ),
               ),
-              const SizedBox(width: 8.0),
+              const SizedBox(
+                child: Text(
+                  ' | ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black26,
+                    fontSize: 16,
+                  ),
+                  maxLines: 2,
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
+                  // horizontal: 8.0,
                   vertical: 2.0,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade100,
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: 1.5,
+                  ),
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: const Text(
                   '12 Januari 2023',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.green,
+                    color: Colors.grey,
                   ),
                 ),
               ),
@@ -286,6 +248,7 @@ class PresenceMapDetailContainer extends StatelessWidget {
               'Jam Check In',
               style: TextStyle(
                 fontSize: 14,
+                color: Colors.black87,
               ),
               maxLines: 2,
             ),
@@ -297,11 +260,11 @@ class PresenceMapDetailContainer extends StatelessWidget {
           ),
         ),
         ListTile(
-          // horizontalTitleGap: 0.0,
-          leading: const Icon(
-            Icons.logout,
-            color: Colors.grey,
-            size: 30.0,
+          horizontalTitleGap: 10,
+          leading: Icon(
+            FluentIcons.panel_right_expand_20_regular,
+            color: Theme.of(context).primaryColor,
+            size: 35.0,
           ),
           dense: true,
           title: Row(
@@ -318,15 +281,28 @@ class PresenceMapDetailContainer extends StatelessWidget {
                   maxLines: 2,
                 ),
               ),
-              const SizedBox(width: 8.0),
+              const SizedBox(
+                child: Text(
+                  ' | ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black26,
+                    fontSize: 16,
+                  ),
+                  maxLines: 2,
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
                   vertical: 2.0,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade100,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(16.0),
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: 1.5,
+                  ),
                 ),
                 child: const Text(
                   '12 Januari 2023',

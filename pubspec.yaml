@@ -24,6 +24,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_map: ^4.0.0
+  flutter_map_animations: ^0.3.0
   flutter_map_location_marker: ^6.0.0
   flutter_svg: ^2.0.5
   form_builder_validators: ^9.0.0

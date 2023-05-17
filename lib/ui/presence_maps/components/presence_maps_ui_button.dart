@@ -2,7 +2,14 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 
 class PresenceMapButton extends StatefulWidget {
-  const PresenceMapButton({super.key});
+  const PresenceMapButton({
+    super.key,
+    required this.text,
+    required this.gradientColors,
+  });
+
+  final String text;
+  final List<Color> gradientColors;
 
   @override
   PresenceMapButtonState createState() => PresenceMapButtonState();
@@ -77,7 +84,7 @@ class PresenceMapButtonState extends State<PresenceMapButton>
       },
       child: Stack(
         alignment: Alignment.center,
-        children: <Widget>[
+        children: [
           AvatarGlow(
             glowColor: Theme.of(context).primaryColor,
             endRadius: 90.0,
@@ -91,20 +98,9 @@ class PresenceMapButtonState extends State<PresenceMapButton>
                 width: MediaQuery.of(context).size.height * 0.18,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).primaryColor,
-                      blurRadius: 40.0,
-                      offset: const Offset(0, 12),
-                      spreadRadius: -5.0,
-                    ),
-                  ],
                   gradient: !_isCheckIn
-                      ? const LinearGradient(
-                          colors: [
-                            Colors.green,
-                            Colors.greenAccent,
-                          ],
+                      ? LinearGradient(
+                          colors: widget.gradientColors,
                           begin: Alignment.topRight,
                           end: Alignment.bottomLeft,
                         )
@@ -136,8 +132,7 @@ class PresenceMapButtonState extends State<PresenceMapButton>
                     : !_isCheckIn
                         ? Icons.fingerprint_outlined
                         : Icons.fingerprint_sharp,
-                size: MediaQuery.of(context).size.height * 0.08 +
-                    (_pulsingController.value * 10),
+                size: MediaQuery.of(context).size.height * 0.08,
                 color: Colors.white,
               ),
               const SizedBox(
@@ -147,7 +142,7 @@ class PresenceMapButtonState extends State<PresenceMapButton>
                 _isButtonHeld
                     ? 'Tahan'
                     : !_isCheckIn
-                        ? 'Check In'
+                        ? widget.text
                         : 'Check Out',
                 style: const TextStyle(
                   color: Colors.white,
