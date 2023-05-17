@@ -30,21 +30,34 @@ class PermissionPage extends StatelessWidget {
                       ),
                     ),
                     child: Center(
-                      child: AvatarGlow(
-                        endRadius: 80,
-                        showTwoGlows: false,
-                        child: IconButton(
-                          icon: const CircleAvatar(
-                            backgroundColor: Color(0XFF663956),
-                            radius: 50,
-                            child: Icon(
-                              size: 80,
-                              Icons.schedule,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AvatarGlow(
+                            endRadius: 80,
+                            showTwoGlows: false,
+                            child: IconButton(
+                              icon: const CircleAvatar(
+                                backgroundColor: Color(0XFF663956),
+                                radius: 50,
+                                child: Icon(
+                                  size: 80,
+                                  Icons.schedule,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                          const Text(
+                            'Cepat Pulang',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
-                          onPressed: () {},
-                        ),
+                        ],
                       ),
                     ),
                   ),
@@ -56,10 +69,47 @@ class PermissionPage extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0XFF0097F2),
+                        Color(0XFF0099F6),
+                      ],
+                    ),
+                  ),
                   width: MediaQuery.of(context).size.width / 2,
-                  color: Colors.white,
-                  child: const Center(
-                    child: Text('Ijin'),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AvatarGlow(
+                          endRadius: 80,
+                          showTwoGlows: false,
+                          child: IconButton(
+                            icon: CircleAvatar(
+                              backgroundColor: Colors.blue.shade600,
+                              radius: 50,
+                              child: const Icon(
+                                size: 80,
+                                Icons.mark_as_unread_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                        const Text(
+                          'Tidak Masuk Kerja',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
