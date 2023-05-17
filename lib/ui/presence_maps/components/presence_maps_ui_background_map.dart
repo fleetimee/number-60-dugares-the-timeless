@@ -14,9 +14,10 @@ class PresenceMapBackgroundMap extends StatelessWidget {
         Expanded(
           child: FlutterMap(
             options: MapOptions(
-              center: LatLng(-6.4503364, 107.0048695),
-              zoom: 13,
+              center: LatLng(-7.7850082, 110.360223),
+              zoom: 16,
               maxZoom: 18,
+              minZoom: 10,
             ),
             children: [
               TileLayer(
