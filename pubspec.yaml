@@ -8,10 +8,13 @@ environment:
 
 dependencies:
   animated_text_kit: ^4.2.2
+  auto_size_text: ^3.0.0
+  avatar_glow: ^2.0.2
   bloc: ^8.1.1
   cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
-  flex_color_scheme: ^7.1.0
+  cherry_toast: ^1.2.1
+  flex_color_scheme: ^7.1.1
   fluentui_system_icons: ^1.1.200
   flutter:
     sdk: flutter
@@ -21,6 +24,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_map: ^4.0.0
+  flutter_map_animations: ^0.3.0
   flutter_map_location_marker: ^6.0.0
   flutter_svg: ^2.0.5
   form_builder_validators: ^9.0.0

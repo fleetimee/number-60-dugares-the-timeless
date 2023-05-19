@@ -183,9 +183,9 @@ final List<HomeButtonEntities> homeButtonEntitiesList = [
     routeName: '/presence',
   ),
   HomeButtonEntities(
-    title: 'Izin',
+    title: 'Ijin',
     icon: FluentIcons.notepad_32_regular,
-    routeName: '/presence',
+    routeName: '/permission',
   ),
   HomeButtonEntities(
     title: 'Penghasilan',

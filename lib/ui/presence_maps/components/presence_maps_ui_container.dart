@@ -1,17 +1,14 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bpd_hris/ui/presence_maps/components/presence_maps_ui_timer.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:slide_action/slide_action.dart';
 
-// ignore: must_be_immutable
+import 'presence_maps_ui_checkin_content.dart';
+import 'presence_maps_ui_checkout_content.dart';
+
 class PresenceMapFloatingContainer extends StatefulWidget {
   const PresenceMapFloatingContainer({
     super.key,
-    required bool inPresence,
-    required bool outPresence,
   });
 
   @override
@@ -21,104 +18,133 @@ class PresenceMapFloatingContainer extends StatefulWidget {
 
 class _PresenceMapFloatingContainerState
     extends State<PresenceMapFloatingContainer> {
-  final List<Color> colors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-  ];
-
-  bool _showDetails = false;
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: MediaQuery.of(context).size.height * 0.01,
+      bottom: MediaQuery.of(context).size.height * 0.04,
       left: MediaQuery.of(context).size.width * 0.05,
       right: MediaQuery.of(context).size.width * 0.05,
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _showDetails = !_showDetails;
-                  });
-                },
-                icon: CircleAvatar(
-                  radius: 20.0,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    !_showDetails
-                        ? Icons.expand_more_outlined
-                        : Icons.expand_less_outlined,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.10,
-              width: MediaQuery.of(context).size.width * 2,
+              height: MediaQuery.of(context).size.height * 0.15,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8.0,
-                    offset: const Offset(0, 4),
+                color: Colors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: PresenceMapTimer(),
                   ),
                 ],
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Center(
-                  child: AnimatedTimeWidget(),
-                ),
-              ),
             ),
-            const SizedBox(height: 8.0),
-            AnimatedSwitcher(
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return SizeTransition(
-                  sizeFactor: animation,
-                  child: child,
-                );
-              },
-              duration: const Duration(milliseconds: 300),
-              child: !_showDetails
-                  ? const PresenceMapsFloatingContainerDetails()
-                  : const SizedBox(),
-            ),
-            const SizedBox(height: 12.0),
-            ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                minimumSize: Size(
-                  MediaQuery.of(context).size.width * 0.9,
-                  40.0,
-                ),
-              ),
-              icon: const Icon(
-                Icons.history,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.285,
+              decoration: BoxDecoration(
                 color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
               ),
-              label: const Text(
-                'Riwayat Presensi',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 16.0,
-                ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PresenceMapDetailContainer(),
+                ],
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        useSafeArea: true,
+                        showDragHandle: true,
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return const PresenceMapCheckinContent();
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      surfaceTintColor: Colors.white,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Check In',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        useSafeArea: true,
+                        showDragHandle: true,
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return const PresenceMapCheckOutContent();
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      backgroundColor: Colors.white,
+                      surfaceTintColor: Colors.white,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Check Out',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -126,286 +152,182 @@ class _PresenceMapFloatingContainerState
   }
 }
 
-class PresenceMapsFloatingContainerDetails extends StatelessWidget {
-  const PresenceMapsFloatingContainerDetails({
+class PresenceMapDetailContainer extends StatelessWidget {
+  const PresenceMapDetailContainer({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.41,
-      width: MediaQuery.of(context).size.width * 2,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8.0,
-            offset: const Offset(0, 4),
+    return Column(
+      children: [
+        ListTile(
+          dense: true,
+          title: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.04,
+            child: const AutoSizeText(
+              'Dalam Area Presensi',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+                fontSize: 18,
+              ),
+              maxLines: 2,
+            ),
           ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ListTile(
-              dense: true,
-              title: Row(
-                children: [
-                  Text(
-                    'Dalam Area Presensi',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green.shade900,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 2.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.red.shade100,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: const Text(
-                      'Pulang',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
+          subtitle: const SizedBox(
+            child: AutoSizeText(
+              'Jln. Letnan Jenderal S. Parman No. 28, Kota Semarang (Kantor Pusat)',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black45,
               ),
-              subtitle: const Text(
-                'Jln. Letnan Jenderal S. Parman No. 28, Kota Semarang',
-              ),
+              maxLines: 2,
             ),
-            const SizedBox(
-              height: 12,
-            ),
-            SlideAction(
-              trackBuilder: (context, state) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.grey.withOpacity(0.2),
+          ),
+        ),
+        ListTile(
+          horizontalTitleGap: 10,
+          leading: Icon(
+            FluentIcons.panel_right_contract_20_regular,
+            color: Theme.of(context).primaryColor,
+            size: 35.0,
+          ),
+          dense: true,
+          title: Row(
+            children: [
+              const SizedBox(
+                child: AutoSizeText(
+                  '07.30',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                    fontSize: 16,
                   ),
-                  child: Center(
-                    child: state.isPerformingAction
-                        ? const CupertinoActivityIndicator()
-                        : GradientText(
-                            gradientDirection: GradientDirection.ltr,
-                            gradientType: GradientType.linear,
-                            'Geser untuk Presensi',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            ),
-                            colors: [
-                              Colors.blue.shade900,
-                              Colors.blue.shade500,
-                            ],
-                          ),
-                  ),
-                );
-              },
-              thumbBuilder: (context, state) {
-                return Container(
-                  margin: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Center(
-                    // Show loading indicator if async operation is being performed
-                    child: state.isPerformingAction
-                        ? const CupertinoActivityIndicator(
-                            color: Colors.white,
-                          )
-                        : const Icon(
-                            Icons.fingerprint,
-                            color: Colors.white,
-                          ),
-                  ),
-                );
-              },
-              action: () async {
-                // Async operation
-                await Future.delayed(
-                  const Duration(seconds: 2),
-                  () => debugPrint("Hello World"),
-                );
-              },
-            ),
-            const SizedBox(height: 12.0),
-            ListTile(
-              // horizontalTitleGap: 0.0,
-              leading: Icon(
-                Icons.login,
-                color: Theme.of(context).primaryColor,
-              ),
-              dense: true,
-              title: Row(
-                children: [
-                  const Text(
-                    '07.30',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 2.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade100,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: const Text(
-                      '12 Januari 2023',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              subtitle: const Text(
-                'Berhasil presensi pukul 07.30.29',
-              ),
-              trailing: Icon(
-                Icons.check_circle,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            ListTile(
-              // horizontalTitleGap: 0.0,
-              leading: const Icon(
-                Icons.logout,
-                color: Colors.grey,
-              ),
-              dense: true,
-              title: Row(
-                children: [
-                  const Text(
-                    '07.30',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 2.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade100,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: const Text(
-                      '12 Januari 2023',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              subtitle: const Text(
-                'Belum melakukan presensi',
-                style: TextStyle(
-                  color: Colors.grey,
+                  maxLines: 2,
                 ),
               ),
-              trailing: const Icon(
-                Icons.hourglass_bottom,
-                color: Colors.grey,
+              const SizedBox(
+                child: Text(
+                  ' | ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black26,
+                    fontSize: 16,
+                  ),
+                  maxLines: 2,
+                ),
               ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  // horizontal: 8.0,
+                  vertical: 2.0,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: const Text(
+                  '12 Januari 2023',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          subtitle: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.03,
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: const AutoSizeText(
+              'Jam Check In',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black87,
+              ),
+              maxLines: 2,
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AnimatedTimeWidget extends StatefulWidget {
-  const AnimatedTimeWidget({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _AnimatedTimeWidgetState createState() => _AnimatedTimeWidgetState();
-}
-
-class _AnimatedTimeWidgetState extends State<AnimatedTimeWidget> {
-  String currentTime = '';
-
-  @override
-  void initState() {
-    super.initState();
-    // Start the timer when the widget is created
-    Timer.periodic(const Duration(seconds: 1), (Timer t) => _getCurrentTime());
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed
-    super.dispose();
-    // stop listening to the timer when the widget is disposed
-  }
-
-  void _getCurrentTime() {
-    if (mounted) {
-      setState(() {
-        // Update the state only if the widget is still in the tree
-        DateTime now = DateTime.now();
-        String hours = _twoDigits(now.hour);
-        String minutes = _twoDigits(now.minute);
-        String seconds = _twoDigits(now.second);
-        currentTime = '$hours : $minutes : $seconds';
-      });
-    }
-  }
-
-  String _twoDigits(int n) {
-    if (n >= 10) return "$n";
-    return "0$n";
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          currentTime,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+          ),
+          trailing: Icon(
+            Icons.check_circle,
+            color: Theme.of(context).primaryColor,
+            size: 30.0,
           ),
         ),
-        const SizedBox(height: 8.0),
-        Text(
-          DateFormat('EEEE, d MMMM yyyy', 'id').format(DateTime.now()),
-          style: const TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.black54,
+        ListTile(
+          horizontalTitleGap: 10,
+          leading: Icon(
+            FluentIcons.panel_right_expand_20_regular,
+            color: Theme.of(context).primaryColor,
+            size: 35.0,
+          ),
+          dense: true,
+          title: Row(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+                child: const AutoSizeText(
+                  '07.30',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+                  maxLines: 2,
+                ),
+              ),
+              const SizedBox(
+                child: Text(
+                  ' | ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black26,
+                    fontSize: 16,
+                  ),
+                  maxLines: 2,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 2.0,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.0),
+                  border: Border.all(
+                    color: Colors.transparent,
+                    width: 1.5,
+                  ),
+                ),
+                child: const Text(
+                  '12 Januari 2023',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          subtitle: const SizedBox(
+            child: Text(
+              'Jam Check Out',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+              ),
+              maxLines: 2,
+            ),
+          ),
+          trailing: const Icon(
+            Icons.hourglass_bottom,
+            color: Colors.grey,
+            size: 30.0,
           ),
         ),
       ],

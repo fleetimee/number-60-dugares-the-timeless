@@ -1,5 +1,6 @@
 import 'package:bpd_hris/common/utils/transisiton.dart';
 import 'package:bpd_hris/ui/home/home_ui.dart';
+import 'package:bpd_hris/ui/permission/permission_ui.dart';
 import 'package:bpd_hris/ui/presence_maps/presence_maps_ui.dart';
 import 'package:bpd_hris/ui/salary/salary_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +33,15 @@ final router = GoRouter(
         context: context,
         state: state,
         child: const SalaryPage(),
+      ),
+    ),
+    GoRoute(
+      path: '/permission',
+      builder: (context, state) => const PermissionPage(),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: const PermissionPage(),
       ),
     ),
   ],
