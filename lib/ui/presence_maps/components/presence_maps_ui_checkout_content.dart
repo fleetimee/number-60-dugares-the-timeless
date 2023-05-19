@@ -18,10 +18,10 @@ class PresenceMapCheckOutContent extends StatelessWidget {
           ),
           fit: BoxFit.cover,
           filterQuality: FilterQuality.high,
-          colorFilter: ColorFilter.mode(
-            Colors.white70,
-            BlendMode.lighten,
-          ),
+          // colorFilter: ColorFilter.mode(
+          //   Colors.white70,
+          //   BlendMode.lighten,
+          // ),
         ),
       ),
       height: MediaQuery.of(context).size.height,
@@ -30,6 +30,9 @@ class PresenceMapCheckOutContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const PresenceMapTimer(),
+          const SizedBox(
+            height: 120,
+          ),
           PresenceMapButton(
             text: 'Check Out',
             gradientColors: [

@@ -19,10 +19,10 @@ class PresenceMapCheckinContent extends StatelessWidget {
           ),
           fit: BoxFit.cover,
           filterQuality: FilterQuality.high,
-          colorFilter: ColorFilter.mode(
-            Colors.white70,
-            BlendMode.lighten,
-          ),
+          // colorFilter: ColorFilter.mode(
+          //   Colors.white70,
+          //   BlendMode.lighten,
+          // ),
         ),
       ),
       height: MediaQuery.of(context).size.height,
@@ -31,6 +31,9 @@ class PresenceMapCheckinContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           PresenceMapTimer(),
+          SizedBox(
+            height: 120,
+          ),
           PresenceMapButton(
             text: 'Check In',
             gradientColors: [
